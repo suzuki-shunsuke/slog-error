@@ -30,7 +30,7 @@ import (
 func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{}))
 	if err := core(); err != nil {
-        // time=2023-12-29T22:30:06.992+09:00 level=ERROR msg="command failed" name=mike error="user is not found"
+		// time=2023-12-29T22:30:06.992+09:00 level=ERROR msg="command failed" name=mike error="user is not found"
 		slogerr.WithError(logger, err).Error("command failed")
 	}
 }
