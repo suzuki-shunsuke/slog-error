@@ -2,17 +2,17 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/suzuki-shunsuke/slog-error.svg)](https://pkg.go.dev/github.com/suzuki-shunsuke/slog-error)
 
-Go library to embed [Attr](https://pkg.go.dev/log/slog#Attr) into error for [slog](https://pkg.go.dev/log/slog)
+Go library to embed args into error for [slog](https://pkg.go.dev/log/slog)
 
 ## Usage
 
 This library provides only two APIs.
 
 ```go
-// WithError gets attrs from err and returns a new logger with err and attrs.
+// WithError gets args from err and returns a new logger with err and args.
 func WithError(logger *slog.Logger, err error) *slog.Logger
-// WithAttrs returns an error with attrs.
-func WithAttrs(err error, attrs ...slog.Attr) error
+// With returns an error with args.
+func With(err error, args ...any) error
 ```
 
 ```go
@@ -43,9 +43,9 @@ func core() error {
 }
 
 func getUser() error {
-	return slogerr.WithAttrs(
+	return slogerr.With(
 		errors.New("user is not found"),
-		slog.String("name", "mike"))
+		"name", "mike")
 }
 ```
 
