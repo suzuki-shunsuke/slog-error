@@ -16,6 +16,28 @@ func WithError(logger *slog.Logger, err error) *slog.Logger {
 	return logger.With("error", err.Error())
 }
 
+type Attrs struct {
+	attrs []any
+}
+
+func NewAttrs(size int) *Attrs {
+	return &Attrs{
+		attrs: make([]any, 0, size),
+	}
+}
+
+func (a *Attrs) Add(logger *slog.Logger, args ...any) *slog.Logger {
+	a.attrs = append(a.attrs, args...)
+	if logger == nil {
+		return nil
+	}
+	return logger.With(a.attrs...)
+}
+
+func (a *Attrs) With(err error, args ...any) error {
+	return With(err, append(a.attrs, args...)...)
+}
+
 func With(err error, args ...any) error {
 	if err == nil {
 		return nil
