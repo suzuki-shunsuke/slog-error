@@ -31,7 +31,7 @@ func (a *Attrs) Add(logger *slog.Logger, args ...any) *slog.Logger {
 	if logger == nil {
 		return nil
 	}
-	return logger.With(a.attrs...)
+	return logger.With(args...)
 }
 
 func (a *Attrs) With(err error, args ...any) error {
